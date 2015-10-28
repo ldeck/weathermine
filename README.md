@@ -28,7 +28,7 @@ These are assumed to be of the following format:
 | **location**    | `x, y` co-ordinate                         |
 | **temperature** | `integer` (celsius, kelvin, or fahrenheit) |
 | **observatory** | ISO 3166 two-letter country codes          |
- 
+
  Mind you, since we're dealing with the uncontrollable forces of nature, flakiness is expected.
 
  Each of the following are examples of log lines that may arise:
@@ -50,7 +50,7 @@ Logs can and *will be* be out of order, they can arrive in LARGE batches, have m
 ## Interpretations
 
 A lookup table is required to interpret the temperature and location values.
- 
+
 | Observatory | Temperature | Distance |
 | ----------- | ----------- | -------- |
 | AU          | celsius     | km       |
@@ -62,30 +62,30 @@ Observations points can be from any country code in the world (at least those kn
 
 ## Roadmap
 
-<p><b style="color:green">0. Iteration 0</b> — defining and testing basic logging types</p>
- 
+**0. Iteration 0** — defining and testing basic logging types [DONE]
+
  Tech stack:
   - Scala 2.11 / Java 1.8
   - SBT 0.13.7 (simple build tool)
   - ScalaTest / ScalaCheck test frameworks
-  
+
   a. enums for the lookup table
   b. case classes for observations and optional fields
   c. main class to produce one random observation, appended to the given file
-  
+
     Usage:
     $ sbt
     sbt> clean
     sbt> test
-  
-<p><b style="color:green">1. Simulated logger</b></p>
+
+**1. Simulated logger** [DONE]
 
 Given that it is difficult to obtain real data from the weather balloon, let's generate a representative sample log file
 
     Usage: sbt "run <count> <logfile>"
         count: the number of log entries to produce
         logfile: the path to the new or existing logfile to append to
-    
+
     Example:
     $ sbt
     > run 500000000 target/readings.log
@@ -95,21 +95,21 @@ Given that it is difficult to obtain real data from the weather balloon, let's g
     $ ls -lh target/readings.log
       -rw-r--r--  1 ldeck  staff    18G 29 Oct 06:16 target/readings.log
 
-    
+
 **Note:** the above would create a file about 20Gb in size!!!
 
 Note to self: compress output in future!
 
-<p><b style="color:red">2. Produce statistics of the flight.</b></p>
- 
+**2. Produce statistics of the flight**
+
 The program should be able to compute any combination of the following on request:
-   
+
     * The minimum temperature.
     * The maximum temperature.
     * The mean temperature.
     * The number of observations from each observatory.
     * The total distance travelled.
-   
-<p><b style="color:red">3. Produce a normalized output of the data</b></p>
+
+**3. Produce a normalized output of the data**
 
 Given desired units for temperature and distance, an output file is produced containing all observations with the specified output units.
